@@ -21,16 +21,8 @@ public class CarsController {
     @GetMapping(value = "/cars")
     public String carsMethodGet(@RequestParam(value = "count", required = false) String count, Model model) {
         model.addAttribute("title", "Список автомобилей в виде таблицы:");
-        if (count != null) {
-            int countInt = Integer.parseInt(count);
-            if (countInt >= 5) {
-                model.addAttribute("cars", carDao.getListCars());
-            } else {
-                model.addAttribute("cars", carDao.getListCars().stream().limit(countInt).toList());
-            }
-        } else {
-            model.addAttribute("cars", carDao.getListCars());
-        }
+        model.addAttribute("cars", carDao.getListCars(count));
+
         return "cars";
     }
 }
